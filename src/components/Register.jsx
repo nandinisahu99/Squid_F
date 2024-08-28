@@ -11,7 +11,7 @@ export default function Register({ ratio, setLogin }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch("http://localhost:5000/user/register",{
+        fetch("https://squid-b.onrender.com/user/register",{
             method:"POST",
             body: JSON.stringify(input),
             headers: {

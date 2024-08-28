@@ -8,7 +8,7 @@ function GetOTP({ setOtp, setSavePassword, useremail }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch("http://localhost:5000/user/verifyOtp",{
+        fetch("https://squid-b.onrender.com/user/verifyOtp",{
             method:"POST",
             body:JSON.stringify({email:useremail,token:ref.current.value.trim()}),
             headers: {
@@ -28,7 +28,7 @@ function GetOTP({ setOtp, setSavePassword, useremail }) {
     }
 
     const handleResend=()=>{
-        fetch("http://localhost:5000/user/resendOtp",{
+        fetch("https://squid-b.onrender.com/user/resendOtp",{
             method:"POST",
             body:JSON.stringify({email:useremail}),
             headers: {

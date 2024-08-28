@@ -12,7 +12,7 @@ export default function Login({ ratio, setLoginRegister, setStory, setLogin, set
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch("http://localhost:5000/user/login", {
+        fetch("https://squid-b.onrender.com/user/login", {
             method: "POST",
             body: JSON.stringify(input),
             headers: {
@@ -41,7 +41,7 @@ export default function Login({ ratio, setLoginRegister, setStory, setLogin, set
         e.preventDefault();
         
         try{
-            fetch("http://localhost:5000/user/responseGoogle",{
+            fetch("https://squid-b.onrender.com/user/responseGoogle",{
                 method:"GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export default function Login({ ratio, setLoginRegister, setStory, setLogin, set
                     </div>
                     <span className="block text-center mb-3">Sign in using any of these</span>
                     <div id="signup-options" className="flex justify-center">
-                        <a onClick={handleGoogle} href='http://localhost:5000/user/auth/google' className="mx-4 my-4 cursor-pointer">
+                        <a onClick={handleGoogle} href='https://squid-b.onrender.com/user/auth/google' className="mx-4 my-4 cursor-pointer">
                             <div className="w-10 h-10">
                                 <img className="w-full h-full" src="/google.png" alt="Google" />
                             </div>

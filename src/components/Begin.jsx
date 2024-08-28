@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import vid16_9 from "../assets/userID.mp4";
 import vid4_3 from "../assets/SQ userID.mp4";
 import loader from "../assets/loaders/gif3.webp";
@@ -12,7 +12,11 @@ export default function Begin({
   const inputRef = useRef();
   const btnRef = useRef();
   const [click, setClick] = useState(false);
-
+  const videoRef=useRef();
+  useEffect(()=>{
+    if(videoRef.current)
+      videoRef.current.src=ratio>=1.6?vid16_9:vid4_3;
+  },[ratio]);
   // const videoDiv=window.document.querySelector("video");
   // console.log(window.videoDiv.clientWidth+" "+window.videoDiv.clientHeight);
   // console.log(window);
@@ -71,7 +75,7 @@ export default function Begin({
             enableFullscreen(document.documentElement);
 
             // fetch("https://squid-bac.onrender.com/user/Start_Game", {
-            fetch("http://localhost:5000/user/Start_Game", {
+            fetch("https://squid-b.onrender.com/user/Start_Game", {
               method: "Post",
               body: JSON.stringify({ email: inputRef.current.value.trim() }),
               headers: { "Content-Type": "application/json" },
@@ -104,8 +108,8 @@ export default function Begin({
   };
   return (
     <>
-      <video width="100%" height="100%" autoPlay loop muted>
-        <source src={ratio >= 1.6 ? vid16_9 : vid4_3} type="video/mp4" />
+      <video width="100%" height="100%" autoPlay loop muted ref={videoRef}>
+        <source type="video/mp4" />
       </video>
       <div className="square">
         <h2 className={Lives > 1 ? "total-lives" : "total-lives redtimer"}>
@@ -128,7 +132,7 @@ export default function Begin({
         >
           {click ? (
             <img
-              class="loader-gif show"
+              className="loader-gif show"
               width="20px"
               height="20px"
               src={loader}

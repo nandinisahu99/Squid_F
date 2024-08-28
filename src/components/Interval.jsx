@@ -20,16 +20,25 @@ export default function Interval({
   const [Input, setInput] = useState(false);
   const [Penalty, setPenalty] = useState(false);
   const [currentVideo, setcurrentVideo] = useState(
-    ratio >= 1.6 ? vid16_9 : vid4_3
+    // ratio >= 1.6 ? vid16_9 : vid4_3
+    "interval"
   );
   const tokenInput = useRef();
   const videoTag = useRef();
   const btnRef = useRef();
   const [click, setClick] = useState(false);
 
+  useEffect(()=>{
+    if(videoTag.current){
+      if(currentVideo==="interval")
+        videoTag.current.src=ratio >= 1.6 ? vid16_9 : vid4_3;
+      else
+        videoTag.current.src=ratio >= 1.6 ? tokenVid16_9 : tokenVid4_3;
+    }
+  }, [currentVideo, ratio]);
   const getToken = () => {
     // https://squid-bac.onrender.com/user/get_token
-    fetch("http://localhost:3000/user/get_token", {
+    fetch("https://squid-b.onrender.com/user/get_token", {
       method: "POST",
       body: JSON.stringify({ email: username }),
       headers: {
@@ -40,7 +49,7 @@ export default function Interval({
       .then((data) => {
         setMsg(() => data.token);
         setFlag(true);
-        setcurrentVideo(ratio >= 1.6 ? tokenVid16_9 : tokenVid4_3);
+        setcurrentVideo("token");
         setIntime(3);
         console.log(data.token);
       });
@@ -48,7 +57,7 @@ export default function Interval({
   const enterRoundTwo = (token, email) => {
     btnRef.current.disabled = true;
     setClick(true);
-    fetch("http://localhost:3000/user/verify_token", {
+    fetch("https://squid-b.onrender.com/user/verify_token", {
       method: "POST",
       body: JSON.stringify({ email: email, token: token }),
       headers: {
@@ -109,7 +118,6 @@ export default function Interval({
         height="100%"
         autoPlay
         muted
-        src={currentVideo}
         type="video/mp4"
         ref={videoTag}
         onTimeUpdate={createLoop}
@@ -143,7 +151,7 @@ export default function Interval({
             >
               {click ? (
                 <img
-                  class="loader-gif show"
+                  className="loader-gif show"
                   width="20px"
                   height="20px"
                   src={loader}
