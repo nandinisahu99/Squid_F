@@ -23,29 +23,29 @@ export default function Sques({
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [className, setClassName] = useState("ans");
   const [disabled, setDisabled] = useState(false);
-  const videoRef=useRef();
-  useEffect(()=>{
-    if(videoRef.current){
-      videoRef.current.src=LevelUp
-      ? ratio >= 1.6
-        ? video2
-        : video2_16_9
-      : ratio >= 1.6
-      ? video1
-      : video1_16_9
+  const videoRef = useRef();
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.src = LevelUp
+        ? ratio >= 1.6
+          ? video2
+          : video2_16_9
+        : ratio >= 1.6
+        ? video1
+        : video1_16_9;
     }
-  }, [ratio])
+  }, [ratio]);
   function exitFullscreen() {
     if (document.exitFullscreen) {
-        document.exitFullscreen();
+      document.exitFullscreen();
     } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
+      document.mozCancelFullScreen();
     } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
+      document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
+      document.msExitFullscreen();
     }
-}
+  }
 
   useEffect(() => {
     if (!LevelUp) {
@@ -57,7 +57,7 @@ export default function Sques({
 
   const selectcand = async () => {
     fetch("https://squid-b.onrender.com/user/select_cand", {
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify({ email: username }),
       headers: {
         "Content-Type": "application/json",
@@ -95,7 +95,6 @@ export default function Sques({
     })
       .then((res) => res.json())
       .then((data) => {
-
         exitFullscreen(document.documentElement);
 
         if (data.selected) {
@@ -145,7 +144,6 @@ export default function Sques({
           })
             .then((res) => res.json())
             .then((data) => {
-
               exitFullscreen(document.documentElement);
 
               if (data.selected) {
@@ -181,13 +179,23 @@ export default function Sques({
     </div> */}
       {question?.question ? (
         <>
-          <video width="100%" height="100%" autoPlay loop muted src={LevelUp
-                  ? ratio >= 1.6
-                    ? video2
-                    : video2_16_9
-                  : ratio >= 1.6
-                  ? video1
-                  : video1_16_9} ref={videoRef}/>
+          <video
+            width="100%"
+            height="100%"
+            autoPlay
+            loop
+            muted
+            src={
+              LevelUp
+                ? ratio >= 1.6
+                  ? video2
+                  : video2_16_9
+                : ratio >= 1.6
+                ? video1
+                : video1_16_9
+            }
+            ref={videoRef}
+          />
           <div className="square">
             <h2 className={Lives > 1 ? "total-lives" : "total-lives redtimer"}>
               No. of Lives: {Lives + 1}
