@@ -25,7 +25,7 @@ export default function Timer({
 }
   useEffect(() => {
     if (timer === 0 && Lives === 0) {
-      fetch("http://localhost:3000/user/End", {
+      fetch("https://squid-b.onrender.com/user/End", {
         method: "post",
         body: JSON.stringify({ email: username, question: questionNumber - 1 }),
         headers: {

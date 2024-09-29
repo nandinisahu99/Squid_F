@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import video1 from "../assets/1level.mp4";
 import video1_16_9 from "../assets/SQ level 1.mp4";
 import video2 from "../assets/2level.mp4";
@@ -23,18 +23,29 @@ export default function Sques({
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [className, setClassName] = useState("ans");
   const [disabled, setDisabled] = useState(false);
-
+  const videoRef = useRef();
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.src = LevelUp
+        ? ratio >= 1.6
+          ? video2
+          : video2_16_9
+        : ratio >= 1.6
+        ? video1
+        : video1_16_9;
+    }
+  }, [ratio]);
   function exitFullscreen() {
     if (document.exitFullscreen) {
-        document.exitFullscreen();
+      document.exitFullscreen();
     } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
+      document.mozCancelFullScreen();
     } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
+      document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
+      document.msExitFullscreen();
     }
-}
+  }
 
   useEffect(() => {
     if (!LevelUp) {
@@ -45,8 +56,8 @@ export default function Sques({
   }, [data, data1, questionNumber]);
 
   const selectcand = async () => {
-    fetch("http://localhost:3000/user/select_cand", {
-      method: "PUT",
+    fetch("https://squid-b.onrender.com/user/select_cand", {
+      method: "POST",
       body: JSON.stringify({ email: username }),
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +86,7 @@ export default function Sques({
 
   const endLevel = () => {
     setQuestionNumber(1);
-    fetch("https://squid-bac.onrender.com/user/End_Game", {
+    fetch("https://squid-b.onrender.com/user/End_Game", {
       method: "Post",
       body: JSON.stringify({ email: username, question: questionNumber }),
       headers: {
@@ -84,7 +95,6 @@ export default function Sques({
     })
       .then((res) => res.json())
       .then((data) => {
-
         exitFullscreen(document.documentElement);
 
         if (data.selected) {
@@ -120,9 +130,9 @@ export default function Sques({
         setDisabled(false);
       } else {
         setDisabled(false);
-        if (Lives === 0) {
+        if (Lives == 0) {
           //change
-          fetch("https://squid-bac.onrender.com/user/End", {
+          fetch("https://squid-b.onrender.com/user/End", {
             method: "post",
             body: JSON.stringify({
               email: username,
@@ -134,7 +144,6 @@ export default function Sques({
           })
             .then((res) => res.json())
             .then((data) => {
-
               exitFullscreen(document.documentElement);
 
               if (data.selected) {
@@ -170,20 +179,23 @@ export default function Sques({
     </div> */}
       {question?.question ? (
         <>
-          <video width="100%" height="100%" autoPlay loop muted>
-            <source
-              src={
-                LevelUp
-                  ? ratio >= 1.6
-                    ? video2
-                    : video2_16_9
-                  : ratio >= 1.6
-                  ? video1
-                  : video1_16_9
-              }
-              type="video/mp4"
-            />
-          </video>
+          <video
+            width="100%"
+            height="100%"
+            autoPlay
+            loop
+            muted
+            src={
+              LevelUp
+                ? ratio >= 1.6
+                  ? video2
+                  : video2_16_9
+                : ratio >= 1.6
+                ? video1
+                : video1_16_9
+            }
+            ref={videoRef}
+          />
           <div className="square">
             <h2 className={Lives > 1 ? "total-lives" : "total-lives redtimer"}>
               No. of Lives: {Lives + 1}

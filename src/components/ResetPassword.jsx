@@ -8,7 +8,7 @@ export default function ResetPassword({setOtp,setSavePassword,setUseremail}) {
         e.preventDefault();
 
         try{
-            fetch("http://localhost:5000/user/reset-password",{
+            fetch("https://squid-b.onrender.com/user/reset-password",{
                 method:"POST",
                 body: JSON.stringify({email:ref.current.value.trim()}),
                 headers: { "Content-Type": "application/json" },

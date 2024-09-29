@@ -12,7 +12,7 @@ function SetNewPassword({setSavePassword,setForgetPassword,useremail}) {
         e.preventDefault();
 
         try{
-            fetch("http://localhost:5000/user/set-password",{
+            fetch("https://squid-b.onrender.com/user/set-password",{
                 method:"POST",
                 body:JSON.stringify(passwordinput),
                 headers: { "Content-Type": "application/json" },
