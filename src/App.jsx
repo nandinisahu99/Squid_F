@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import DisableDevtool from "disable-devtool";
+// import DisableDevtool from "disable-devtool";
 import "./app.css";
 import Sques from "./components/Sques";
 import Timer from "./components/Timer";
@@ -14,7 +14,7 @@ import vid4_3 from "./assets/SQ thanks.mp4";
 import LoginRegister from "./components/LoginRegister";
 import { data, data1 } from "./quizData";
 
-DisableDevtool();
+// DisableDevtool();
 
 function App() {
   const [intro, setIntro] = useState(true);
@@ -31,47 +31,47 @@ function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
-  window.addEventListener("contextmenu", (e) => e.preventDefault());
+  // window.addEventListener("contextmenu", (e) => e.preventDefault());
 
-  function ctrlShiftKey(e, keyCode) {
-    return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
-  }
+  // function ctrlShiftKey(e, keyCode) {
+  //   return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+  // }
 
-  window.onkeydown = (e) => {
-    // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
-    if (
-      e.keyCode === 123 ||
-      ctrlShiftKey(e, "I") ||
-      ctrlShiftKey(e, "J") ||
-      ctrlShiftKey(e, "C") ||
-      (e.ctrlKey && e.keyCode === "U".charCodeAt(0))
-    )
-      return false;
-  };
+  // window.onkeydown = (e) => {
+  //   // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
+  //   if (
+  //     e.keyCode === 123 ||
+  //     ctrlShiftKey(e, "I") ||
+  //     ctrlShiftKey(e, "J") ||
+  //     ctrlShiftKey(e, "C") ||
+  //     (e.ctrlKey && e.keyCode === "U".charCodeAt(0))
+  //   )
+  //     return false;
+  // };
 
-  // Prevent refresh when F5 key is pressed
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "F5") {
-      event.preventDefault();
-    }
-  });
+  // // Prevent refresh when F5 key is pressed
+  // document.addEventListener("keydown", function (event) {
+  //   if (event.key === "F5") {
+  //     event.preventDefault();
+  //   }
+  // });
 
-  // Prevent refresh when Ctrl+R or Cmd+R is pressed (reloading the page)
-  document.addEventListener("keydown", function (event) {
-    if ((event.ctrlKey || event.metaKey) && event.key === "r") {
-      event.preventDefault();
-    }
-  });
+  // // Prevent refresh when Ctrl+R or Cmd+R is pressed (reloading the page)
+  // document.addEventListener("keydown", function (event) {
+  //   if ((event.ctrlKey || event.metaKey) && event.key === "r") {
+  //     event.preventDefault();
+  //   }
+  // });
 
-  // Prevent refresh when browser's refresh button is clicked
-  window.addEventListener("beforeunload", function (event) {
-    event.preventDefault();
-  });
+  // // Prevent refresh when browser's refresh button is clicked
+  // window.addEventListener("beforeunload", function (event) {
+  //   event.preventDefault();
+  // });
 
-  // Prevent refresh when navigating away (e.g., clicking links)
-  window.addEventListener("unload", function (event) {
-    event.preventDefault();
-  });
+  // // Prevent refresh when navigating away (e.g., clicking links)
+  // window.addEventListener("unload", function (event) {
+  //   event.preventDefault();
+  // });
   const [ratio, setRatio] = useState(
     (window.innerWidth / window.innerHeight).toFixed(1)
   );
